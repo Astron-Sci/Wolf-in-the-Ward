@@ -1048,10 +1048,50 @@ function showMember(mi){
 }
 
 var CHALLENGES=[
-  {q:"「你不是医生吧？看着就年轻，别乱教我们」",a:[{t:"我是实习医生，这条是按教材和诊疗规范说的，您可以拿去问主治。",ok:true},{t:"好吧，那您当我没说。",ok:false}]},
-  {q:"「我表姐就是做完手术瘫的，你解释解释」",a:[{t:"个例不等于手术本身会致瘫；真正凶险的是马尾综合征，拖久了才容易出事。",ok:true},{t:"那可能手术确实风险很大，别做。",ok:false}]}
+  {q:"「你不是医生吧？看着就年轻，别乱教我们」",a:[{t:"我是实习医生，但这条是按教材和规范说的，您不信可以拿去问主治。",ok:true},{t:"好吧，那您当我没说。",ok:false}]},
+  {q:"「我表姐就是做完手术瘫的，你解释解释」",a:[{t:"个例不等于手术本身会让人瘫，真正凶险的是马尾综合征，拖久了才危险。",ok:true},{t:"那可能手术风险确实大，别做。",ok:false}]},
+  {q:"「网上那么多人这么说，就你一个人反对」",a:[{t:"说法多不等于对，您可以拿教材或者问主治医生对一对。",ok:true},{t:"那可能网上说得对。",ok:false}]},
+  {q:"「你别是卖药卖器械的吧」",a:[{t:"我不卖东西，就是把解剖和规范讲清楚，买不买是您自己的事。",ok:true},{t:"随便您怎么想。",ok:false}]},
+  {q:"「照你这么说，我这些年都白活了？」",a:[{t:"不是说您做错了，是有些老说法跟解剖对不上，咱们一起看看就好。",ok:true},{t:"差不多就是这个意思。",ok:false}]},
+  {q:"「那你给我个准话，到底做不做手术」",a:[{t:"做不做要看神经受压的程度和症状变化，得主治医生结合检查定，我不能替您拍板。",ok:true},{t:"我觉得您还是别做了。",ok:false}]},
+  {q:"「我邻居家的老李按偏方治好了，你怎么解释」",a:[{t:"那可能本来就不重，或者正好赶上恢复期，说明不了偏方有用。",ok:true},{t:"那他确实厉害，您也可以试试。",ok:false}]},
+  {q:"「你们医生说话都留半句，是不是怕担责任」",a:[{t:"不是我留半句，是每个人情况不一样，标准答案得看检查结果。",ok:true},{t:"是，我们都不敢担责任。",ok:false}]},
+  {q:"「我疼得睡不着，说这些有用吗」",a:[{t:"疼得厉害先去门诊把症状说清楚，别硬扛；我讲这些是帮您别被误导。",ok:true},{t:"忍忍就过去了。",ok:false}]},
+  {q:"「群里好多人都说管用，你说不管用？」",a:[{t:"管不管用要看有没有依据，大家都觉得管用不等于真的对因。",ok:true},{t:"那可能是我记错了。",ok:false}]},
+  {q:"「小年轻，你懂什么」",a:[{t:"我年轻，但讲的是书上和规范里的东西，您可以自己核一核。",ok:true},{t:"那您说得对。",ok:false}]},
+  {q:"「你是不是医院派来打广告的？」",a:[{t:"不是，我就是群里的实习医生，看到不对的说法想提醒一句。",ok:true},{t:"算是吧。",ok:false}]},
+  {q:"「照你说的，我以后一点油都不能吃了？」",a:[{t:"不是不能吃，是少量多餐慢慢适应，别走极端。",ok:true},{t:"对，最好一点都别吃。",ok:false}]},
+  {q:"「你说的跟我在别处看到的不一样啊」",a:[{t:"不一样的时候就比一比哪个跟解剖结构和诊疗规范对得上，别只看谁嗓门大。",ok:true},{t:"那可能是我记差了。",ok:false}]},
+  {q:"「那我这情况到底严重吗？」",a:[{t:"严不严重得看检查和症状变化，光在群里说说判断不了，建议去门诊看看。",ok:true},{t:"我看挺严重的。",ok:false}]},
+  {q:"「你这么说，是不是看不起我们这些老病号」",a:[{t:"哪能啊，正因为大家都是老病号，才更该把话说清楚，别让偏方耽误了。",ok:true},{t:"随您怎么理解。",ok:false}]}
 ];
 
+var CHATTER=[
+ {parts:[{t:"早上好！新的一天又开始啦"}]},
+ {parts:[{t:"今天降温了，大家都加衣服了吗"}]},
+ {parts:[{t:"我刚从公园走回来，出了一身汗"}]},
+ {parts:[{t:"大家吃饭了吗？"}]},
+ {parts:[{t:"医生说我这属于神经根受压，得看压迫程度",decoy:true}]},
+ {parts:[{t:"我昨天量了血压，还行"}]},
+ {parts:[{t:"我孙子给我买了个按摩仪，说能治腰疼",decoy:true}]},
+ {parts:[{t:"我最近在练八段锦，感觉挺舒服的"}]},
+ {parts:[{t:"转发：秋季养生小知识，大家看看"}]},
+ {parts:[{t:"我早上喝了碗小米粥，胃里舒服"}]},
+ {parts:[{t:"医生说多喝水对身体有好处"}]},
+ {parts:[{t:"我家阳台的花开了，好看得很"}]},
+ {parts:[{t:"这几天睡不好，翻来覆去的"}]},
+ {parts:[{t:"大家有什么好办法吗"}]},
+ {parts:[{t:"我昨天去医院复查了，医生说没什么大问题"}]},
+ {parts:[{t:"这个天儿真是一天比一天冷了"}]},
+ {parts:[{t:"我孙女考上大学了，一家人高兴"}]},
+ {parts:[{t:"我每天都坚持散步半小时"}]},
+ {parts:[{t:"群主辛苦了，每天提醒大家"}]},
+ {parts:[{t:"我这两天膝盖有点不得劲，可能是天冷"}]},
+ {parts:[{t:"大家晚上早点休息，别熬夜"}]},
+ {parts:[{t:"我刚买菜回来，今天的菜挺新鲜"}]},
+ {parts:[{t:"我听人说喝醋能软化血管",decoy:true}]},
+ {parts:[{t:"有人说粗粮吃着好，我就跟着吃",decoy:true}]}
+];
 var chat=document.getElementById("chat"),overlay=document.getElementById("overlay"),panel=document.getElementById("panel"),toast=document.getElementById("toast");
 function toastMsg(s){toast.textContent=s;toast.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove("on")},1900)}
 function hud(){
@@ -1087,12 +1127,13 @@ function addMsg(m,delay){
 }
 function showDay(){
   sysLine("第 "+S.day+" 天　开始");
-  var list=resolveDay();
+  var list=withChatter(resolveDay());
   (list||[]).forEach(function(m,i){
     if(m.sys){setTimeout(function(){sysLine(m.sys)},i*380);return}
     var hasKw=(m.parts||[]).some(function(p){return !!p.kw});
+    var hasDecoy=(m.parts||[]).some(function(p){return !!p.decoy});
     (m.parts||[]).forEach(function(p){if(p.kw){if(S.poster[p.kw]==null){S.poster[p.kw]=m.who}if(S.todayRumors.indexOf(p.kw)<0){S.todayRumors.push(p.kw)}}});
-    if(m.who!=null){record(m.who,m.name,plainText(m),hasKw)}
+    if(m.who!=null&&(hasKw||hasDecoy)){record(m.who,m.name,plainText(m),hasKw)}
     addMsg(m,i*380);
   });
   var claims=(list||[]).filter(function(m){return (m.parts||[]).some(function(p){return !!p.kw})});
@@ -1100,8 +1141,20 @@ function showDay(){
     var fw=nextFollower();
     var fm={name:fw.name,av:fw.av,color:fw.color,who:fw.idx,parts:[{t:"刚看到有人说「"+kwText(claims[0])+"」，我也听好几个人这么讲过，转给大家看看。"}]};
     record(fw.idx,fw.name,plainText(fm),false);
-    addMsg(fm,(list||[]).length*380+450);
+    addMsg(fm,list.length*380+450);
   }
+}
+function withChatter(list){
+  var pool=[];CAST.members.forEach(function(m){if(m.idx===0||m.kicked)return;pool.push(m)});
+  var chatter=shuffle(CHATTER.slice());
+  var n=5+Math.floor(Math.random()*3);
+  var out=(list||[]).slice();
+  for(var i=0;i<n&&i<chatter.length;i++){
+    var mem=pool[Math.floor(Math.random()*pool.length)];
+    var msg={name:mem.name,av:mem.av,color:mem.color,who:mem.idx,parts:chatter[i].parts};
+    out.splice(1+Math.floor(Math.random()*out.length),0,msg);
+  }
+  return out;
 }
 function onKeyword(p,el){
   if(S.over||S.locked)return;
@@ -1180,7 +1233,8 @@ function runChallenges(from){
   function next(){
     if(S.over)return;
     if(idx>=rounds){afterResolve();return}
-    var c=CHALLENGES[idx%CHALLENGES.length];idx++;
+    if(!S.chPool||!S.chPool.length){S.chPool=shuffle(CHALLENGES.slice())}
+    var c=S.chPool.pop();idx++;
     var _m=CAST.members[Math.floor(Math.random()*20)];
     addMsg({name:_m.name,av:_m.av,color:"#888",parts:[{t:c.q}]},0);
     panel.innerHTML="";
@@ -1252,7 +1306,7 @@ function newDay(){
   var pool=[];for(var m=1;m<20;m++){pool.push(m)}
   shuffle(pool);
   CAST.daySpeakers=pool.slice(0,4);
-  S.todayResolved={};S.todayRumors=[];S.poster=S.poster||{};
+  S.todayResolved={};S.todayRumors=[];S.poster=S.poster||{};S.chPool=shuffle(CHALLENGES.slice());
   chat.innerHTML="";
 }
 function endDay(){
@@ -1369,6 +1423,15 @@ if(_auto){setTimeout(function(){
   },600);
 })();
 },3000)}
+  if(_h.indexOf("failtest")>=0){setTimeout(function(){
+    var id=S.todayRumors[0];if(!id)return;
+    openReason(id);
+    setTimeout(function(){
+      var r=RUMS[id];var src=(S.diff===1)?r.beginner:r.directions[0].opts;
+      var bad=null;src.forEach(function(o){if(!o.ok&&!bad)bad=o});
+      pickReason(id,bad||{t:"（测试）",ok:false});
+    },700);
+  },3000)}
   if(_h.indexOf("kicktest")>=0){setTimeout(function(){
     var w=CAST.members.filter(function(m){return m.isWolf})[0];
     var nm=w.name;w.kicked=true;S.wolves--;
