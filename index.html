@@ -1237,13 +1237,29 @@ function runChallenges(from){
     var c=S.chPool.pop();idx++;
     var _m=CAST.members[Math.floor(Math.random()*20)];
     addMsg({name:_m.name,av:_m.av,color:"#888",parts:[{t:c.q}]},0);
+    setTimeout(function(){askRespond(c,idx)},2800);
+  }
+  function askRespond(c,idx){
+    if(S.over)return;
     panel.innerHTML="";
-    var t=document.createElement("div");t.className="panelTitle";t.textContent="// 质疑第 "+idx+" 轮，回应它";panel.appendChild(t);
-    c.a.forEach(function(o){var b=document.createElement("div");b.className="opt";b.textContent=o.t;b.onclick=function(){
+    var t=document.createElement("div");t.className="panelTitle";t.textContent="// 病友在质疑你，要回应吗？";panel.appendChild(t);
+    var b1=document.createElement("div");b1.className="opt";b1.textContent="回应他";
+    b1.onclick=function(){showReplies(c,idx)};panel.appendChild(b1);
+    var b2=document.createElement("div");b2.className="opt back";b2.textContent="先不回应（威信 -2）";
+    b2.onclick=function(){closeReason();addWei(-2);toastMsg("你没回应，威信 -2");setTimeout(next,700)};panel.appendChild(b2);
+    overlay.classList.add("on");
+  }
+  function showReplies(c,idx){
+    panel.innerHTML="";
+    var t=document.createElement("div");t.className="panelTitle";t.textContent="// 第 "+idx+" 轮，选一句回应";panel.appendChild(t);
+    var _opts=(S.diff===3)?shuffle(c.a.slice()):c.a;
+    _opts.forEach(function(o){var b=document.createElement("div");b.className="opt";b.textContent=o.t;b.onclick=function(){
       closeReason();
       if(o.ok){addWei(5);toastMsg("回应得体，威信 +5")}else{addWei(-10);toastMsg("没说服对方，威信 -10")}
       setTimeout(next,600);
     };panel.appendChild(b)});
+    var back=document.createElement("div");back.className="opt back";back.textContent="← 改成不回应（威信 -2）";
+    back.onclick=function(){closeReason();addWei(-2);toastMsg("你没回应，威信 -2");setTimeout(next,700)};panel.appendChild(back);
     overlay.classList.add("on");
   }
   next();
