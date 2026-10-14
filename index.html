@@ -1164,7 +1164,7 @@ function onKeyword(p,el){
 }
 function openReason(id){
   S.locked=true;
-  if(S.diff===1){renderFlat(id)}else{renderDirections(id)}
+  if(S.diff===1){renderFlat(id)}else if(S.diff===3){renderHard(id)}else{renderDirections(id)}
   overlay.classList.add("on");
   startTimer(id,40);
 }
@@ -1173,6 +1173,15 @@ function renderFlat(id){
   var t=document.createElement("div");t.className="panelTitle";t.textContent="// 选一条正确的解释";panel.appendChild(t);
   var _bl=(S.diff===3)?shuffle(r.beginner.slice()):r.beginner;
   _bl.forEach(function(o){var b=document.createElement("div");b.className="opt";b.textContent=o.t;b.onclick=function(){pickReason(id,o)};panel.appendChild(b)});
+}
+function renderHard(id){
+  var r=RUMS[id];
+  var all=[];
+  r.directions.forEach(function(d){d.opts.forEach(function(o){all.push(o)})});
+  all=shuffle(all);
+  panel.innerHTML="";
+  var t=document.createElement("div");t.className="panelTitle";t.textContent="// 硬核：从全部说法里挑出唯一正确的那条";panel.appendChild(t);
+  all.forEach(function(o){var b=document.createElement("div");b.className="opt";b.textContent=o.t;b.onclick=function(){pickReason(id,o)};panel.appendChild(b)});
 }
 function renderDirections(id){
   var r=RUMS[id];panel.innerHTML="";
